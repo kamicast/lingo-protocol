@@ -100,6 +100,11 @@ class LingoServer extends EventEmitter {
     self.uws.listen(this.port, token => { if (token) debug(`listening on port ${this.port}`); });
   }
 
+  publish(topic: string, message: Object) {
+    debg('publish - topic: %s', topic);
+    this.uws.publish(topic, JSON.stringify(message));
+  }
+
   setBusy(status: boolean): void {
     this.busy = status;
   }
