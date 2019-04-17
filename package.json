@@ -1,6 +1,6 @@
 {
   "name": "lingo-protocol",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Lingo (LINk and GO) enables second screen devices to launch applications on first screen devices.",
   "main": "lib/index.js",
   "scripts": {

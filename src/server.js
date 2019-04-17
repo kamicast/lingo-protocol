@@ -10,29 +10,47 @@ import uWS, {
 import {
   arrayBufferToString,
   arrayBufferToJSON,
+  jsonToBuffer,
   ipToString,
   abToBencodeToJSON
-  } from './utilities';
+} from './utilities';
+
+import type Device from './device';
 
 const debug = require('debug')('lingo');
 
-type Options = {
+export type Options = {
   serverPrefix: string,
   port:         number
 };
 
-type Device = {
-  name:         string,
-  UUID:         string,
-  type:         string,
-  version:      string,
-  serverPrefix: string
+export type Message = {
+  type:   'open' | 'close' | 'cmd',
+  open?:  'app' | 'video' | 'audio' | 'image',
+  cmd?:   'play' | 'pause' | 'next' | 'previous' | 'restart',
+  app?:   Application,
+  video?: Video,
+  audio?: Audio,
+  image?: Image
 };
 
-type Message = {
-  type: 'open' | 'close' | 'cmd',
-  open: 'app' | 'video' | 'audio' | 'image',
-  cmd?: string
+export type Application = {
+  name:      string,
+  link:      string,
+  websocket: boolean,
+  subTopics: [string]
+};
+
+export type Video = {
+  metadata: Object
+};
+
+export type Audio = {
+  metadata: Object
+};
+
+export type Image = {
+  metadata: Object
 };
 
 class LingoServer extends EventEmitter {
@@ -41,12 +59,6 @@ class LingoServer extends EventEmitter {
   port:         number;
   busy:         boolean;
   device:       Device;
-  setupServer:  Function;
-  _onOpen:      Function;
-  _onClose:     Function;
-  _onMessage:   Function;
-  _onDrain:     Function;
-  _onClose:     Function;
   constructor(options: Options | Object) {
     super();
     if (!options) options = {};
@@ -88,49 +100,22 @@ class LingoServer extends EventEmitter {
     self.uws.listen(this.port, token => { if (token) debug(`listening on port ${this.port}`); });
   }
 
+  setBusy(status: boolean): void {
+    this.busy = status;
+  }
+
   /** Lingo Message Protocol **/
   _handleMessage(msg: null | Message): void {
     if (!msg || this.busy)
       return;
     debug('message: %o', msg);
-    if (msg.type === 'open') {
-      switch (msg.open) {
-        case 'app':
-          this._onApp(msg);
-          break;
-        case 'video':
-          this._onVideo(msg);
-          break;
-        case 'audio':
-          this._onAudio(msg);
-          break;
-        case 'image':
-          this._onImage(msg);
-          break;
-        default:
-          null;
-      }
+    if (msg.type === 'open' && msg.open && msg[msg.open]) {
+      this.emit('open', msg.open, msg[msg.open]);
     } else if (msg.type === 'close') {
-
-    } else if (msg.type === 'cmd') {
-
+      this.emit('close');
+    } else if (msg.type === 'cmd' && msg.cmd) {
+      this.emit(msg.cmd);
     }
-  }
-
-  _onApp(msg: Message): void {
-
-  }
-
-  _onVideo(msg: Message): void {
-
-  }
-
-  _onAudio(msg: Message): void {
-
-  }
-
-  _onImage(msg: Message): void {
-
   }
 
   /** WebSocket Functions **/
@@ -142,12 +127,12 @@ class LingoServer extends EventEmitter {
 
   _onMessage(ws: Websocket, message: ArrayBuffer, isBinary: boolean): void {
     debug('message - length: %d, binary: %o', message.byteLength, isBinary);
-    if (ws.headers['content-type'] && ws.headers['content-type'] === 'application/json')
-      this._handleMessage(arrayBufferToJSON(message));
-    else if (ws.headers['content-type'] && ws.headers['content-type'] === 'application/bencode')
-      this._handleMessage(abToBencodeToJSON(message));
-    else
+    if (!ws.headers['content-type'])
       this._handleMessage(arrayBufferToJSON(message)); // default to json
+    else if (ws.headers['content-type'] === 'application/json')
+      this._handleMessage(arrayBufferToJSON(message));
+    else if (ws.headers['content-type'] === 'application/bencode')
+      this._handleMessage(abToBencodeToJSON(message));
   }
 
   _onDrain(ws: Websocket): void {
