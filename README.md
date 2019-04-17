@@ -1,25 +1,23 @@
-# skeleton-module [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![Greenkeeper badge](https://badges.greenkeeper.io/IFTT/skeleton-module.svg)](https://greenkeeper.io/)
+# lingo-protocol [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![Greenkeeper badge](https://badges.greenkeeper.io/CraigglesO/lingo-protocol.svg)](https://greenkeeper.io/)
 
-[travis-image]: https://travis-ci.org/IFTT/skeleton-module.svg?branch=master
-[travis-url]: https://travis-ci.org/IFTT/skeleton-module
-[npm-image]: https://img.shields.io/npm/v/@iftt/skeleton-module.svg
-[npm-url]: https://npmjs.org/package/@iftt/skeleton-module
-[downloads-image]: https://img.shields.io/npm/dm/@iftt/skeleton-module.svg
-[downloads-url]: https://npmjs.org/package/@iftt/skeleton-module
+[travis-image]: https://travis-ci.org/CraigglesO/lingo-protocol.svg?branch=master
+[travis-url]: https://travis-ci.org/CraigglesO/lingo-protocol
+[npm-image]: https://img.shields.io/npm/v/CraigglesO/lingo-protocol.svg
+[npm-url]: https://npmjs.org/package/CraigglesO/lingo-protocol
+[downloads-image]: https://img.shields.io/npm/dm/CraigglesO/lingo-protocol.svg
+[downloads-url]: https://npmjs.org/package/CraigglesO/lingo-protocol
 
-## About
+## Lingo Protocol
 
-**Create new modules with this skeleton**
+*Lin*k and *Go* is a new open source DIAL alternative.
 
-`git clone https://github.com/IFTT/skeleton-module.git`
 
-`git remote rm origin`
 
 ---
 
 ## ISC License (ISC)
 
-Copyright 2019 <IFTT>
+Copyright 2019 <CraigglesO>
 Copyright (c) 2004-2010 by Internet Systems Consortium, Inc. ("ISC")
 Copyright (c) 1995-2003 by Internet Software Consortium
 

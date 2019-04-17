@@ -1,7 +1,7 @@
 {
-  "name": "@iftt/skeleton-module",
+  "name": "lingo-protocol",
   "version": "1.0.0",
-  "description": "When creating new NodeJS modules, use this skeletal structure",
+  "description": "Lingo (LINk and GO) enables second screen devices to launch applications on first screen devices.",
   "main": "lib/index.js",
   "scripts": {
     "lint+build+test": "yarn run lint && yarn run build && yarn run test",
@@ -12,23 +12,34 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iftt/skeleton-module.git"
+    "url": "https://github.com/CraigglesO/lingo-protocol.git"
   },
   "author": "Craig OConnor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IFTT/skeleton-module/issues"
+    "url": "https://github.com/CraigglesO/lingo-protocol/issues"
   },
-  "homepage": "https://github.com/IFTT/skeleton-module#readme",
+  "homepage": "https://github.com/CraigglesO/lingo-protocol#readme",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@babel/plugin-syntax-flow": "^7.2.0",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-flow": "^7.0.0",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^4.0.0",
-    "flow-bin": "^0.48.0",
-    "tape": "^4.6.3"
+    "babel-plugin-add-module-exports": "1.0.0",
+    "core-js": "3",
+    "eslint": "^5.16.0",
+    "flow-bin": "^0.97.0",
+    "socket.io-client": "^2.2.0",
+    "tape": "^4.10.1",
+    "yarn-upgrade-all": "^0.5.0"
+  },
+  "dependencies": {
+    "bencode": "^2.0.1",
+    "simple-service-discovery-protocol": "^1.0.5",
+    "uWebSockets.js": "uNetworking/uWebSockets.js#v15.9.0",
+    "websocket": "^1.0.28"
   }
 }

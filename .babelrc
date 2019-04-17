@@ -4,8 +4,8 @@
   "sourceMap": true,
   "comments": false,
   "presets": [
-    ["@babel/preset-env", { "useBuiltIns": "entry" }],
+    ["@babel/preset-env", { "useBuiltIns": "entry", "corejs": "core-js@3" }],
     "@babel/preset-flow"
   ],
-  "plugins": ["@babel/plugin-syntax-flow"]
+  "plugins": ["@babel/plugin-syntax-flow", "add-module-exports"]
 }
